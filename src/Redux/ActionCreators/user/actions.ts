@@ -1,0 +1,13 @@
+export const DELETE_USER:string = 'delete_user'
+export const UPDATE_USER:string = 'update_user'
+export const UPDATE_CONTACT:string = 'update_contact'
+export const GET_USER:string = 'get_user'
+export const VIEW_CONTACT:string = 'get_contact'
+export const VIEW_CONTACTS:string = 'get_contact'
+export const ADD_CONTACT:string = 'get_contact'
+export const LOADING_CONTACTS:string = 'loading_contacts'
+export const LOADING_CONTACT:string = 'loading_contact'
+export const LOADING_USER:string = 'loading_user'
+export const DELETING_CONTACT:string = 'delete_contact'
+export const ERROR:string = 'ERROR'
+
