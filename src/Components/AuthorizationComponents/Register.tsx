@@ -11,7 +11,7 @@ interface Iprops {
     getToken:(arg:string)=>void
 }
 
-interface form{
+export interface form{
     firstname: string;
     lastname: string;
     username: string;
@@ -19,7 +19,7 @@ interface form{
     email: string;
 
 }
-const formData:form = {
+export const formData:form = {
     firstname: "",
     lastname: "",
     username: "",

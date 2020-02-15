@@ -3,22 +3,26 @@ import { GET_USER, DELETE_USER, UPDATE_USER, LOADING_USER, ERROR } from "../Acti
 import { Stater } from "./auth";
 
 export interface userState extends Stater{
-    data:Array<object>
+    data:any
 } 
 
 //i can get user token from auth reducer
 const stateObject: userState = {
     isLoading: false,
     error: "",
-    data: []
-}
+    data: {
+        Profile: [
+            { "fname": "","lname": "","email": "","username": "","Contacts": [], }
+        ]
+    } 
+} 
 
 const userReducer = (state = stateObject, action: type_profile): userState => {
     switch (action.type) {
         case GET_USER:
             return {
                 ...state,
-                data: (action.payload as object[]),
+                data: action.payload,
             }
         case DELETE_USER:
             return {
@@ -28,7 +32,7 @@ const userReducer = (state = stateObject, action: type_profile): userState => {
         case UPDATE_USER:
             return {
                 ...state,
-                data:action.payload as object[]
+                data:action.payload as object
             }
         case LOADING_USER:
             return {

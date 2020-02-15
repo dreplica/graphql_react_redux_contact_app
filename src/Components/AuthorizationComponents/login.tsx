@@ -5,6 +5,7 @@ import { Stater } from '../../Redux/Reducer/auth';
 import { gql } from 'apollo-boost';
 import { token } from '../../graphql_queries/queries'
 import { useMutation } from '@apollo/react-hooks';
+import { useHistory } from 'react-router-dom';
 interface Iprops {
 	data: { auth: string | undefined };
 	getToken: (arg: string) => void;
@@ -32,7 +33,8 @@ ${token}
 
 
 const Login: React.FC<Iprops> = ({ data, getToken }) => {
-	const [ form, setform ] = useState(formData);
+	const [form, setform] = useState(formData);
+	const history = useHistory()
 	const [loginUser, {data:incomingToken}] = useMutation(LoginRequest)
 	console.log('this is data', data);
 	// console.log("this is incoming data",incomingToken)
@@ -43,6 +45,7 @@ const Login: React.FC<Iprops> = ({ data, getToken }) => {
 				...form
 			}
 		}).then((resp) => getToken(resp.data.SignIn.token))
+			.then(_=>history.push('/home'))
 		.catch(err=>console.log("this is the returned error",err.message))
 		console.log("here",incomingToken);
 	};
