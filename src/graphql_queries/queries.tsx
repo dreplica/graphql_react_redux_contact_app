@@ -46,6 +46,7 @@ query users{
         username
         Contacts{
             fname
+            id
         }
     }
 }

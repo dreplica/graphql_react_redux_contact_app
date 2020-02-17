@@ -3,7 +3,7 @@ import { GET_USER, DELETE_USER, UPDATE_USER, LOADING_USER, ERROR } from "../Acti
 import { Stater } from "./auth";
 
 export interface dataType {
-    [key: string]: Array<{ [key: string]: number|string | [] }>;
+    [key: string]: Array<{ [key: string]: number|string | Array<object> }>; 
 }
  export interface userState extends Stater{
     data: dataType
@@ -24,7 +24,7 @@ const userReducer = (state = stateObject, action: type_profile): userState => {
                 data: action.data as dataType,
             }
         case DELETE_USER:
-            const filter = state.data.Profile.filter((val:{ [key: string]: number|string | [] })=>val.email !== (action.payload as string))
+            const filter = state.data.Profile.filter((val:{ [key: string]: number|string | Array<object> })=>val.email !== (action.payload as string))
             return {
                 ...state,
                 data: { Profile:(state.data.Profile = filter) }

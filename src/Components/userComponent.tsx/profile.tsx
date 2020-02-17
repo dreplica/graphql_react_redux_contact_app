@@ -16,7 +16,7 @@ interface Iprops{
     update: (args: object) => void;
 } 
 
-type formDisplay =  Omit<form,"password">
+type formDisplay = Omit<form, "password">
 const profileForm: formDisplay = {
     firstname: "",
     lastname: "",
@@ -94,7 +94,8 @@ const Profile: React.FC<Iprops> = ({ data,view,deleter,update }) => {
     //     setprofile_form({...profile_form,['e.target.id']:e.target.value})
     // }
   return (
-          <form>
+      <form>
+          no of contacts:{data && (data.Profile[0].Contacts as []).length}<br/>
             <label>First Name
              <input type='text' id='firstname' value={profile_form.firstname} onChange={(e)=>setprofile_form({...profile_form,firstname:e.target.value})} />
             </label>
@@ -112,7 +113,6 @@ const Profile: React.FC<Iprops> = ({ data,view,deleter,update }) => {
         </form>
   );
 }
-
 
 const mapStateToProps = ({ userReducer, authenticateReducer }: { userReducer: userState ;authenticateReducer:Stater}) => ({
     data: userReducer.data,
