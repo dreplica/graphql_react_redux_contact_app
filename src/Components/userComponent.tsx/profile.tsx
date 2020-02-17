@@ -6,10 +6,10 @@ import { userState,dataType } from '../../Redux/Reducer/userReducer';
 import { Stater } from '../../Redux/Reducer/auth';
 import { viewUser, deleteUser, updateUser } from '../../Redux/ActionCreators/user/contactsActionFunc';
 import { getProfile, deleteProfile, updateProfile } from '../../graphql_queries/queries';
-
+import { useHistory } from 'react-router-dom';
 
 interface Iprops{
-    data: dataType; 
+    data: dataType;  
     auth: string | undefined;
     view: (args: dataType) => void;
     deleter: (id: string) => void;
@@ -29,6 +29,7 @@ const profileForm: formDisplay = {
 const Profile: React.FC<Iprops> = ({ data,view,deleter,update }) => {
     const [profile_form, setprofile_form] = useState(profileForm) 
     const [focus, setFocus] = useState(false)
+    const history = useHistory() 
     const [deleting] = useMutation(deleteProfile)
     const [updating] = useMutation(updateProfile)
     const { data: profileDetails, loading, error } = useQuery(getProfile)
@@ -75,7 +76,7 @@ const Profile: React.FC<Iprops> = ({ data,view,deleter,update }) => {
             variables: {
                 ...profile_form
             }
-        })
+        }).then(_=>history.push("/contact"))
     }
 
     const delete_user = (e:FormEvent) => { 
@@ -109,7 +110,7 @@ const Profile: React.FC<Iprops> = ({ data,view,deleter,update }) => {
                   <input type='email' value={profile_form.email} onChange={(e) => setFocus(true)}/>
             </label>
             <button type="submit" onClick={update_user}>Edit</button>
-            <button type="submit" onClick={delete_user}>Delete</button>
+          <button type="submit" onClick={delete_user}>Delete</button>
         </form>
   );
 }

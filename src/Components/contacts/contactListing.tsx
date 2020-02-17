@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { userState, dataType } from '../../Redux/Reducer/userReducer';
 import { connect } from 'react-redux';
 
 interface Iprops{
-    children: React.ReactNode;
-    data: Array<{ fname: string | undefined; lname: string | undefined }>;
+  data: string | number | Array<object>
 }
 
- const showContacts:React.FC<Iprops> = ({data})=> {
+const ShowContacts: React.FC<Iprops> = ({ data }) => {
+  const [Contacts , setContacts] = useState(data)
+  console.log(data)
+  useEffect(() => {
+    if (data) { 
+      setContacts(data)
+     }
+   }, [data])
+  console.log(typeof Contacts)
+    // Contacts.map((value:object,index:string)=><li key={index} id={value.id}>value</li>)
+
   return (
     <>
     
@@ -14,6 +24,11 @@ interface Iprops{
   );
 }
 
-const Connecting = connect();
+const mapStateToProps = ({ userReducer}:{userReducer:userState}) => ({
+  data:userReducer.data.Profile[0].Contacts
+})
+
+
+const Connecting = connect(mapStateToProps)(ShowContacts);
 
 export default Connecting;

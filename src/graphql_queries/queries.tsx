@@ -18,6 +18,20 @@ export const token = gql`
     }
 `
 
+export const profile = gql`
+    fragment profile on Person{
+        id
+        fname
+        lname
+        email
+        username
+        Contacts{
+            id
+            fname
+        }
+    }
+`
+
 export const signup = gql`
      mutation Signup ($firstname:String!,$lastname:String!,$username:String!, $password:String!,$email:String!){
         SignUp(username:$username,fname:$firstname,lname:$lastname,email:$email,password:$password){
@@ -39,17 +53,10 @@ ${token}
 export const getProfile = gql`
 query users{
     Profile{
-        fname
-        id
-        lname
-        email
-        username
-        Contacts{
-            fname
-            id
+        ...profile
         }
     }
-}
+${profile}
 `
 
 export const deleteProfile = gql`
@@ -62,7 +69,8 @@ mutation users($id:String!){
 export const updateProfile = gql`
 mutation users($firstname:String!,$lastname:String!,$username:String!,$email:String!){
     UpdateUser(fname:$firstname,lname:$lastname,username:$username,email:$email){
-        fname
-    }
+        ...profile
+        }
 }
+${profile}
 `

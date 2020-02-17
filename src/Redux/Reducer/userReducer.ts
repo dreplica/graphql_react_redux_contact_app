@@ -32,7 +32,7 @@ const userReducer = (state = stateObject, action: type_profile): userState => {
         case UPDATE_USER:
             return {
                 ...state,
-                data: { Profile: [{ ...action.payload as object }]}//watch out remove the casting and see the error to solve
+                data: { Profile: [{ ...state.data.Profile[0], ...action.payload as object }]}//watch out remove the casting and see the error to solve
             }
         case LOADING_USER:
             return {
