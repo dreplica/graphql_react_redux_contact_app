@@ -1,13 +1,14 @@
 import { type_profile, mounting_user, isError, all_contacts, delete_user, deleting_contact, mounting_contact, mounting_contacts, contact_view, update_user, update_contact}from './contactActions'
 import { profile_view}from './contactActions'
 import { Dispatch } from 'redux';
+import { dataType } from '../../Reducer/userReducer';
 
 interface actions{
     func: (args: type_profile) => type_profile;
 }
 
 
-export const viewUser = (data:Array<object>) => (dispatch: Dispatch) => {
+export const viewUser = (data:dataType) => (dispatch: Dispatch) => {
     try {
         dispatch(mounting_user(true));
         dispatch(profile_view(data));
@@ -54,7 +55,7 @@ export const deleteContact = (id:string) => (dispatch: Dispatch) => {
         dispatch(isError(error.message))
     }
 }
-export const updateUser = (id:Array<object>) => (dispatch: Dispatch) => {
+export const updateUser = (id:object) => (dispatch: Dispatch) => {
     try {
         dispatch(mounting_contact(true));
         dispatch(update_user(id));

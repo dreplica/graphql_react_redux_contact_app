@@ -1,11 +1,10 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getTokenFromRegister } from '../../Redux/ActionCreators/authorization/AuthactionFunc';
 import { Stater} from "../../Redux/Reducer/auth";
-import { gql } from 'apollo-boost';
-import { token } from '../../graphql_queries/queries';
 import { useMutation } from '@apollo/react-hooks';
+import { signup } from '../../graphql_queries/queries';
 interface Iprops {
     data: { auth: string | undefined;};
     getToken:(arg:string)=>void
@@ -28,21 +27,10 @@ export const formData:form = {
 
 }
 
-// const Registered = token
-const signup = gql`
-     mutation Signup ($firstname:String!,$lastname:String!,$username:String!, $password:String!,$email:String!){
-        SignUp(username:$username,fname:$firstname,lname:$lastname,email:$email,password:$password){
-            ...Token
-        }
-    }
-    ${token}
-`
-
-
 const Register: React.FC<Iprops> = ({ data, getToken }) => {
     const [form, setform] = useState(formData)
-    // const history = useHistory()
-    const [registerUser] = useMutation(signup)
+    const history = useHistory()
+    const [registerUser] = useMutation(signup) 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         registerUser({
@@ -50,9 +38,8 @@ const Register: React.FC<Iprops> = ({ data, getToken }) => {
                 ...form
             }
         }).then(res => getToken(res.data.SignUp.token))
-            // .then(_=>history.push('/'))
+            .then(_ => history.push('/home'))
         .catch(err=>console.log(err.message))
-        // history.push('/')
         
    }
     return (

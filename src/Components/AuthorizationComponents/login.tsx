@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { getTokenFromLogin } from '../../Redux/ActionCreators/authorization/AuthactionFunc';
 import { Stater } from '../../Redux/Reducer/auth';
-import { gql } from 'apollo-boost';
-import { token } from '../../graphql_queries/queries'
+import { LoginRequest } from '../../graphql_queries/queries'
 import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 interface Iprops {
@@ -20,14 +19,7 @@ const formData: form = {
 	email: ''
 };
 
-const LoginRequest = gql`
-	mutation Login($email:String!,$password:String!){
-		SignIn(email:$email,password:$password){
-			...Token
-		}
-	}
-${token}
-`
+
 // there should be a useMutation from appolo/react-hooks
 // it collects variables
 

@@ -2,19 +2,18 @@ import { type_profile } from "../ActionCreators/user/contactActions";
 import { GET_USER, DELETE_USER, UPDATE_USER, LOADING_USER, ERROR } from "../ActionCreators/user/actions";
 import { Stater } from "./auth";
 
-export interface userState extends Stater{
-    data:any
+export interface dataType {
+    [key: string]: Array<{ [key: string]: number|string | [] }>;
+}
+ export interface userState extends Stater{
+    data: dataType
 } 
 
 //i can get user token from auth reducer
 const stateObject: userState = {
     isLoading: false,
     error: "",
-    data: {
-        Profile: [
-            { "fname": "","lname": "","email": "","username": "","Contacts": [], }
-        ]
-    } 
+    data: { }
 } 
 
 const userReducer = (state = stateObject, action: type_profile): userState => {
@@ -22,17 +21,18 @@ const userReducer = (state = stateObject, action: type_profile): userState => {
         case GET_USER:
             return {
                 ...state,
-                data: action.payload,
+                data: action.data as dataType,
             }
         case DELETE_USER:
+            const filter = state.data.Profile.filter((val:{ [key: string]: number|string | [] })=>val.email !== (action.payload as string))
             return {
                 ...state,
-                data:state.data.filter((val:any)=>val.id !== action.payload)
+                data: { Profile:(state.data.Profile = filter) }
             }
         case UPDATE_USER:
             return {
                 ...state,
-                data:action.payload as object
+                data: { Profile: [{ ...action.payload as object }]}//watch out remove the casting and see the error to solve
             }
         case LOADING_USER:
             return {

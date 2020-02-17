@@ -5,25 +5,27 @@ import {
     DELETING_CONTACT, UPDATE_CONTACT,
     LOADING_USER
 } from "./actions"
+import { dataType } from "../../Reducer/userReducer"
 
 
 export interface type_profile {
     type: string;
-    payload?: string|boolean|Array<object>;//not all actioncreators would need payload
+    data?:dataType
+    payload?: string|boolean|Array<object>|object;//not all actioncreators would need payload
 }
 
 
 
 //USER ACTIONS
-export const profile_view =(payload:Array<object>):type_profile => ({
+export const profile_view =(data:dataType):type_profile => ({
     type: GET_USER,
-    payload
+    data
 })
 export const delete_user =(payload:string):type_profile => ({
     type: DELETE_USER,
     payload
 })
-export const update_user =(payload:Array<object>):type_profile => ({
+export const update_user =(payload:object):type_profile => ({
     type: UPDATE_USER,
     payload
 })
